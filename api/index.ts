@@ -8,14 +8,19 @@ export const config = {
 const app = new Hono().basePath('/api')
 
 app.get('/rank', async (c) => {
-  const { name, tag } = c.req.query()
+  try {
+    const { name, tag } = c.req.query()
 
-  const rawData = await fetch(`https://api.henrikdev.xyz/valorant/v2/mmr/eu/${name}/${tag}?api_key=HDEV-5cdfb84f-9133-4ce3-a27b-db30845e6f17`)
-  const data = await rawData.json()
+    const rawData = await fetch(`https://api.henrikdev.xyz/valorant/v2/mmr/eu/${name}/${tag}?api_key=HDEV-5cdfb84f-9133-4ce3-a27b-db30845e6f17`)
+    const data = await rawData.json()
 
-  const rank = data.current_data.currenttierpatched
+    const rank = data.current_data.currenttierpatched
 
-  return c.json({message: `Your rank is ${rank}`, data})
+    return c.json({message: `Your rank is ${rank}`, data})
+  } catch (error) {
+    const {message} = error as Error
+    return c.text(message)
+  }
 })
 
 export default handle(app)
