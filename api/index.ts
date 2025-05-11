@@ -16,7 +16,7 @@ app.get('/rank', async (c) => {
 
     const rank = data.current_data.currenttierpatched
 
-    return c.json({message: `Your rank is ${rank}`, data})
+    return c.json({message: `Your rank is ${rank ? rank : 'var not init'}`, data})
   } catch (error) {
     const {message} = error as Error
     return c.text(message)
