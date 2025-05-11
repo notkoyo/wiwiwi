@@ -13,8 +13,10 @@ app.get('/rank', async (c) => {
 
     const rawData = await fetch(`https://api.henrikdev.xyz/valorant/v2/mmr/eu/${name}/${tag}?api_key=HDEV-5cdfb84f-9133-4ce3-a27b-db30845e6f17`)
     const data = await rawData.json()
+    
+    const rank = data.data.current_data.currenttierpatched
 
-    return c.json({message: `Your rank is ${'var not init'}`, data})
+    return c.json({message: `Your rank is ${rank}`, data})
   } catch (error) {
     const {message} = error as Error
     return c.text(message)
