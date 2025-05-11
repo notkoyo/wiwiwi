@@ -15,7 +15,7 @@ app.get('/rank', async (c) => {
 
   const rank = data.current_data.currenttierpatched
 
-  return c.json({message: `Your rank is ${rank}`})
+  return c.json({message: `Your rank is ${rank}`, data})
 })
 
 export default handle(app)
